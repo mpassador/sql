@@ -1,0 +1,46 @@
+/* Part 1 - Table Creation */
+-- Sctipt to create the table used for this demo
+
+CREATE TABLE [dbo].[people_compliance](
+	[DateNow] [datetime] NULL,
+	[UserID] [nvarchar](50) NULL,
+	[Amount] [float] NULL
+) ON [PRIMARY]
+/* Part 1 - End of Table Creation */
+
+/* Part 2 - Stored Procedure Creation */
+-- The intent of this script is to insert data into a table every 3 seconds to simulate a realtime application
+-- Fields to be updated: 
+--  SANDBOX = database name; 
+--  countt = amount of new rows the script will insert (default=13);
+--  WAITFOR DELAY = is the amount of time the script will wait to execute per row (default=3 seconds); 
+
+USE [sandbox]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author: Moacyr Passador
+-- Create date: May, 28th, 2020
+-- Description:	Update table every 3 seconds for 12 times
+-- Updated on May 29th, 2020 - Added the random nummber
+-- =============================================
+ALTER PROCEDURE [dbo].[realtime]  as
+	-- Add the parameters for the stored procedure here
+declare	@countt float = 1;
+
+while (@countt <= 13)
+
+BEGIN
+INSERT INTO dbo.people_compliance (DateNow, UserID, Amount)
+     VALUES (getdate(), 'mstr',(FLOOR(RAND()*(25-10+1))+10))
+
+ WAITFOR DELAY '00:00:03'
+
+set @countt = @countt +1
+
+END
+/* Part 2 - End Stored Procedure Creation */
+
