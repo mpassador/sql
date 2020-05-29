@@ -27,7 +27,7 @@ GO
 -- Description:	Update table every 3 seconds for 12 times
 -- Updated on May 29th, 2020 - Added the random nummber
 -- =============================================
-ALTER PROCEDURE [dbo].[realtime]  as
+CREATE PROCEDURE [dbo].[realtime]  as -- Change the CREATE to ALTER if you want to update it
 	-- Add the parameters for the stored procedure here
 declare	@countt float = 1;
 
